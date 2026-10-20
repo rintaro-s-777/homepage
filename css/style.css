@@ -1,0 +1,1106 @@
+@charset "utf-8";
+
+
+/*cssファイルの読み込み
+---------------------------------------------------------------------------*/
+@import url("theme.css");
+@import url("inview.css");
+
+
+/*animation11のキーフレーム設定（汎用的）
+---------------------------------------------------------------------------*/
+@keyframes animation1 {
+	0% {right: -200px;}
+	100% {right: 0px;}
+}
+
+
+/*opa1のキーフレーム設定（汎用的）
+---------------------------------------------------------------------------*/
+@keyframes opa1 {
+	0% {opacity: 0;}
+	100% {opacity: 1;}
+}
+
+
+/*全体の設定
+---------------------------------------------------------------------------*/
+body * {box-sizing: border-box;}
+html {
+	font-size: clamp(12px, 0.293vw + 10.9px, 15px);	/*画面幅約375px〜1400pxの間で、12px〜15pxに可変*/
+	overflow-x: visible;
+}
+body {
+	margin: 0;padding:0;
+	font-family: var(--base-font);	/*フォント指定。theme.cssのbase-fontを読み込みます。*/
+	-webkit-text-size-adjust: none;
+	background: var(--bg-color) url("../images/bg1.png") no-repeat center top / 100%;	/*背景色、背景画像の読み込み。背景色はtheme.cssのbg-colorを読み込みます。*/
+	color: var(--bg-inverse-color);	/*文字色。theme.cssのbg-inverse-colorを読み込みます。*/
+	line-height: 2;		/*行間*/
+	overflow-x: hidden;
+}
+
+/*リセット*/
+figure {margin: 0;}
+dd {margin: 0;}
+nav,ul,li,ol {margin: 0;padding: 0;}
+nav ul {list-style: none;}
+
+/*table全般の設定*/
+table {border-collapse:collapse;}
+
+/*画像全般の設定*/
+img {border: none;max-width: 100%;height: auto;vertical-align: middle;}
+
+/*videoタグ*/
+video {max-width: 100%;}
+
+/*iframeタグ*/
+iframe {width: 100%;}
+
+/*他*/
+input {font-size: 1rem;}
+
+
+/*section
+---------------------------------------------------------------------------*/
+section {
+	padding: 0 var(--content-space-l);	/*上下、左右へのsection内の余白。左右については、theme.cssの--content-space-lを読み込みます。*/
+	margin: var(--content-space-l) 0;	/*上下、左右へのsectionの外側にとるマージン。上下については、theme.cssの--content-space-lを読み込みます。*/
+}
+
+
+/*リンクテキスト全般の設定
+---------------------------------------------------------------------------*/
+a {
+	color: inherit;
+	transition: 0.3s;	/*hoverまでにかける時間。0.3秒。*/
+}
+
+/*マウスオン時*/
+a:hover {
+	filter: brightness(1.1);	/*少しだけ明るくする*/
+	text-decoration: none;
+}
+
+
+/*コンテナー（サイト全体を囲むブロック）
+---------------------------------------------------------------------------*/
+#container {
+	animation: opa1 0.2s 0.2s both;  /*0.2(2つ目の数字)秒待機後、0.2(1つ目の数字)秒かけてフェードイン*/
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+}
+
+
+/*header（ロゴが入った最上段のブロック）
+---------------------------------------------------------------------------*/
+/*ヘッダー*/
+header {
+    display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 2rem;		/*ロゴとメニューブロックの間に空けるスペース。2文字分。*/
+	height: 100px;	/*ヘッダーの高さ。お好みで。*/
+	padding-inline: var(--content-space-l);	/*左右の余白。theme.cssのcontent-space-lを読み込みます*/
+}
+
+/*ロゴ画像*/
+header .logo {margin: 0;flex-shrink: 0;}
+header .logo img {
+	display: block;
+	width: 100px;	/*ロゴの幅。お好みで。*/
+}
+
+
+/*大きな端末で見たメニュー
+---------------------------------------------------------------------------*/
+/*メニューブロック全体の設定*/
+.large-screen #menubar {
+	font-family: var(--accent-font), var(--base-font);	/*英語の場合は冒頭のaccent-fontに指定したフォントを読み込む。日本語はbase-fontで指定したフォントを読み込む。*/
+}
+.large-screen #menubar > nav > ul {
+	display: flex;
+	gap: 2rem;	/*メニュー同士に空けるスペース。2文字分。*/
+	letter-spacing: 0.05em;	/*文字間隔を少しだけ広く*/
+}
+
+/*メニュー１個あたりの設定*/
+.large-screen #menubar li a {
+	display: block;text-decoration: none;
+}
+
+
+/*大きな端末で見た場合のドロップダウンメニュー
+---------------------------------------------------------------------------*/
+/*ドロップダウン全体*/
+.large-screen #menubar ul ul {
+	text-shadow: none;
+	position: absolute;z-index: 100;
+	animation: opa1 0.5s 0.1s both;	/*0.1秒待機後、0.5秒かけてフェードイン表示*/
+}
+
+/*メニュー１個あたり*/
+.large-screen #menubar ul ul a {
+	background: rgba(0,0,0,0.3);	/*背景色。0,0,0は黒のことで0.3は色が30%出た状態。*/
+	color: #fff;	/*文字色*/
+	padding: 0.2rem 1rem;	/*上下に0.2文字分、左右に1文字分の余白*/
+	border-radius: 100px;	/*角を丸く。大きければ適当でOK。*/
+	margin-top: 5px;		/*メニュー同士の間に空けるスペース*/
+	border: 1px solid rgba(255,255,255,0.5);	/*枠線の幅、線種、最後は色の指定で255,255,255は白のことで0.5は色が50%出た状態。*/
+}
+.large-screen #menubar ul ul a:hover {
+	background: rgba(0,0,0,0.6);	/*マウスオンで少し黒っぽく。*/
+}
+
+
+/*小さな端末で見たメニュー（開閉メニュー）
+---------------------------------------------------------------------------*/
+/*メニューブロック共通*/
+.small-screen #menubar {
+	animation: animation1 0.2s both;
+	position: fixed;overflow: auto;z-index: 100;
+	right: 0px;top: 0px;
+	width: 50%;	/*画面の半分の幅*/
+	height: 100%;
+	padding: 100px var(--content-space-l) 50px;	/*上下に100px、左右にtheme.cssのcontent-space-lで指定しているサイズ、下に50pxの余白*/
+	background: var(--primary-color);	/*背景色。theme.cssのprimary-colorを読み込みます。*/
+	color: var(--primary-inverse-color);	/*文字色。theme.cssのprimary-inverse-colorを読み込みます。*/
+}
+
+.small-screen #menubar {display: none;}
+
+	/*画面幅700px以下の追加指定*/
+	@media (max-width:700px) {
+
+	.small-screen #menubar {
+		width: 100%;	/*幅を100%に*/
+	}
+
+	}/*追加指定ここまで*/
+
+
+/*メニュー１個あたり*/
+.small-screen #menubar a {
+	display: block;text-decoration: none;
+	color: inherit;
+	margin-bottom: 1rem;	/*下に１文字分のスペースを空ける*/
+	padding: 1rem 2rem;		/*メニュー内の余白。上下に１文字分、左右に２文字分。*/
+	border-radius: 5px;		/*角を少し丸くする*/
+	background: #fff;
+}
+
+/*子メニュー（ドロップダウンメニュー）*/
+.small-screen #menubar ul ul a {
+	margin-left: 2rem;	/*左に２文字分のスペースを空ける*/
+	padding: 0.5rem 1.5rem;	/*メニュー内の余白。上下に0.5文字分、左右に1.5文字分。*/
+}
+
+/*ドロップダウンのアイコン*/
+a.ddmenu::before {
+	font-family: "Font Awesome 6 Free";
+	font-weight: 900;
+	content: "\f078";		/*このアイコンを使う*/
+	margin-right: 1em;		/*アイコンとメニューテキストとの間に空けるスペース。1文字分。*/
+	font-size: 0.7em;		/*アイコンサイズ。70%*/
+	vertical-align: middle;
+	display: inline-block;
+	line-height: 1;
+}
+
+/*ドロップダウン共通（デフォルトで非表示。チラつかないよう念の為。）
+---------------------------------------------------------------------------*/
+#menubar ul ul {display: none;}
+
+
+/*３本バー（ハンバーガー）アイコン設定
+---------------------------------------------------------------------------*/
+#menubar_hdr {
+	display: none; /* デフォルトは非表示 */
+	animation: opa1 0s 0.2s both;
+	cursor: pointer;
+	position: fixed;
+	z-index: 101;
+	right: 0px;	/*右からの配置場所*/
+	top: 0px;	/*上からの配置場所*/
+	width: 70px;	/*ボタンの幅*/
+	height: 70px;	/*ボタンの高さ*/
+	border-bottom-left-radius: 10px;	/*左下の角だけ丸くする*/
+}
+
+/*ハンバーガーアイコンの線*/
+#menubar_hdr span {
+	display: block;
+	transition: 0.3s;
+	position: absolute;
+	left: 18px;
+	width: 35px;
+	height: 1px;		/*線の高さ*/
+	background: var(--bg-inverse-color);	/*線の色。theme.cssのbg-inverse-colorを読み込みます。*/
+}
+
+/*バツ印が出ている時のボタン色*/
+#menubar_hdr.ham {
+	background: #fff;	/*背景色*/
+}
+#menubar_hdr.ham span {
+	background: #333;	/*線の色*/
+}
+
+/*以下変更不要*/
+#menubar_hdr span:nth-of-type(1) {
+	top: 24px;
+}
+#menubar_hdr span:nth-of-type(2) {
+	top: 34px;
+}
+#menubar_hdr span:nth-of-type(3) {
+	top: 44px;
+}
+#menubar_hdr.ham span:nth-of-type(1) {
+	transform: translateY(10px) rotate(-45deg);
+}
+#menubar_hdr.ham span:nth-of-type(2) {
+	opacity: 0;
+}
+#menubar_hdr.ham span:nth-of-type(3) {
+	transform: translateY(-10px) rotate(45deg);
+}
+
+/*小さな画面での設定*/
+.small-screen #menubar_hdr {
+	display: flex;
+}
+
+
+/*メイン画像
+---------------------------------------------------------------------------*/
+.mainimg * {margin: 0;padding: 0;}
+.mainimg picture,.mainimg img {display: block;width: 100%;}
+
+/*メイン画像ブロック全体*/
+.mainimg {
+	display: flex;
+	gap: 5vw;
+	position: relative;
+	margin-bottom: var(--content-space-l);	/*下に空けるスペース。theme.cssのcontent-space-lを読み込みます。*/
+}
+
+	/*画面幅700px以下の追加指定*/
+	@media (max-width:700px) {
+
+	/*メイン画像ブロック全体*/
+	.mainimg {
+		flex-direction: column;
+	}
+
+	}/*追加指定ここまで*/
+
+
+/*テキストブロック*/
+.mainimg .text {
+	flex: 1;
+	position: relative;z-index: 1;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	gap: 1rem;
+	padding-left: 5vw;	/*左に5%の余白をあける*/
+	margin-right: -12vw;	/*右に10%食い込ませる*/
+}
+
+	/*画面幅700px以下の追加指定*/
+	@media (max-width:700px) {
+
+	/*テキストブロック*/
+	.mainimg .text {
+		margin: 0;
+		align-items: center;
+		text-align: center;
+	}
+	
+	}/*追加指定ここまで*/
+
+
+/*見出し*/
+.mainimg .text h1 {
+	font-family: var(--accent-font), var(--base-font);	/*英語の場合は冒頭のaccent-fontに指定したフォントを読み込む。日本語はbase-fontで指定したフォントを読み込む。*/
+	font-weight: 300;	/*太さ*/
+	font-size: max(24px, 7.5vw);	/*文字サイズ。24pxより小さくならない。7.5は可変サイズなのでお好みで。*/
+	line-height: 1.3;	/*行間を狭く*/
+}
+
+	/*画面幅700px以下の追加指定*/
+	@media (max-width:700px) {
+
+	/*見出しの改行を無効にして１行にする*/
+	.mainimg .text h1 br {
+		display: none;
+	}
+
+	}/*追加指定ここまで*/
+
+
+/*説明文*/
+.mainimg .text p {
+	color: var(--accent-color);	/*文字色。theme.cssのaccent-colorを読み込みます。*/
+	font-size: 0.8rem;	/*文字サイズ80%*/
+}
+
+/*画像ブロック*/
+.mainimg .image {
+	width: 65%;
+	aspect-ratio: 3 / 2;	/*画像のアスペクト比。お好みで。*/
+	filter: drop-shadow(-3vw 2vw var(--light-color));	/*影。右へ3%（マイナスがついているので左になる）、下へ2%、影の色はtheme.cssのlight-colorを読み込みます。*/
+}
+
+	/*画面幅700px以下の追加指定*/
+	@media (max-width:700px) {
+
+	/*画像ブロック*/
+	.mainimg .image {
+		width: 100%;
+	}
+
+	}/*追加指定ここまで*/
+
+/*画像*/
+.mainimg .image img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	clip-path: url(#mainimgClip);
+}
+
+/*画像右下の「Nice to meet you」のテキストブロック*/
+.mainimg .overlay {
+	position: absolute;
+	right: 0px;		/*右からの配置場所*/
+	bottom: -2vw;	/*下からの配置場所。マイナスがついているので、下に向かっての指示になる。*/
+	background: var(--primary-color);	/*背景色。theme.cssのprimary-colorを読み込みます。*/
+	font-size: 0.8rem;	/*文字サイズ80%*/
+	width: max(150px, 18vw);	/*ブロック幅。18%。150pxより小さくしない。*/
+	min-height: 15vw;	/*ブロックの最低の高さ。15%*/
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 1rem 2rem;	/*上下に1文字分、左右に2文字分の余白*/
+	text-align: center;
+}
+/*アクセントライン*/
+.mainimg .overlay > div::before {
+	content: "";
+	width: 20px;	/*アクセントラインの幅*/
+	display: block;
+	margin: 0 auto 1rem;	/*1remは、アクセントラインの下に空けるスペース。*/
+	border-top: 1px solid var(--accent-color);	/*上の線の幅、線種、var以降は色の指定でtheme.cssのaccent-colorを読み込みます*/
+}
+
+
+/*contents
+---------------------------------------------------------------------------*/
+#contents {
+	flex: 1;
+	min-height: 0;
+}
+
+
+/*main
+---------------------------------------------------------------------------*/
+main {
+	container-type: inline-size;
+}
+
+/*h2見出し*/
+main h2 {
+	font-size: 2rem;
+	font-weight: 500;
+	display: flex;
+	gap: 1.5rem;	/*h2内にspanを使う場合、間に空けるスペース。1.5文字分。*/
+	align-items: center;
+	letter-spacing: 0.05em;
+	position: relative;
+}
+
+/*見出し左上の「●」の飾り。不要ならこのブロックごと削除。*/
+main h2::before {
+	content: "●";	/*この文字を出します*/
+	color: var(--accent-color);	/*文字色。theme.cssのaccent-colorを読み込みます。*/
+	position: absolute;
+	left: -1rem;	/*左からの配置場所。マイナスがついているので本来とは逆向きに。*/
+	top: -0.5rem;	/*上からの配置場所。マイナスがついているので本来とは逆向きに。*/
+	font-size: 10px;	/*文字サイズ*/
+}
+
+/*h2見出し内のspan（小文字）*/
+main h2 span a {text-decoration: none;}
+main h2 span {
+	display: inline-block;
+	font-size: 0.8rem;	/*文字サイズ80%*/
+	font-weight: 300;	/*文字の太さ。細く。*/
+	background: var(--light-color);	/*背景色。theme.cssのlight-colorを読み込みます。*/
+	padding: 0 1rem;		/*上下は0、左右に1文字分の余白。*/
+	border-radius: 100px;	/*角を丸く*/
+}
+/*spanの右側の「→」アイコン。font Awesome。*/
+main h2 span a::after {
+	font-family: "Font Awesome 6 Free";
+	font-weight: 900;
+	content: "\f061";		/*このアイコンを使う*/
+	margin-left: 0.7rem;	/*テキストと、矢印との間に空けるスペース。0.7文字分。*/
+	transition: 0.3s;
+}
+main h2 span a:hover::after {
+	margin-left: 1rem;		/*テキストと、矢印との間に空けるスペース。1文字分。*/
+}
+
+/*main内で使用するul,ol要素（リストタグ）*/
+main ul,main ol {
+	margin-left: 2rem;
+	margin-right: 2rem;
+}
+
+
+/*メニューオーバーレイ（メニュー領域外クリックで閉じる用）
+---------------------------------------------------------------------------*/
+#menubar-overlay {
+	display: none;
+	position: fixed;
+	z-index: 99;	/*#menubar(100)の下、ページの上*/
+	top: 0;left: 0;
+	width: 100%;height: 100%;
+	background: rgba(0,0,0,0.3);	/*半透明の黒。お好みで濃さを調整。*/
+}
+
+/*noscroll（メニュー表示中のスクロール禁止用）*/
+body.noscroll {
+	overflow: hidden;
+}
+
+
+/*list-grid1（Aboutブロック）
+---------------------------------------------------------------------------*/
+/*ブロック全体*/
+.list-grid1 {
+	display: grid;
+	grid-template-columns: 0.9fr 1.2fr 0.9fr;	/*３列のそれぞれの幅。90%、120%、90%。お好みで。*/
+	align-items: start;
+	gap: 5vw;	/*３カラム同士の間に空けるスペース。5%。*/
+}
+
+/*3つ目のブロック*/
+.list-grid1 div:nth-of-type(3) {
+	position: relative;
+}
+/*3つ目のブロック上の「About me」の飾り*/
+.list-grid1 div:nth-of-type(3) img.kazari {
+	position: absolute;
+	width: 100px;	/*幅。お好みで。*/
+	right: 7%;		/*右から7%*/
+	top: 20%;		/*上から20%*/
+}
+
+/*2つ目のブロックの上に余白を空ける。３つのブロックを階段状にするため。*/
+.list-grid1 > *:nth-child(2) { margin-top: 5vw; }
+
+/*3つ目のブロックの上に余白を空ける。３つのブロックを階段状にするため。*/
+.list-grid1 > *:nth-child(3) { margin-top: 10vw; }
+
+	/*画面幅500px以下の追加指定*/
+	@media (max-width:500px) {
+
+    .list-grid1 {
+        grid-template-columns: 1fr;   /* 1カラムに */
+		margin: 15vw;	/*外側に空けるスペース。これがないとキツキツになるので。*/
+    }
+    .list-grid1 > *:nth-child(2),
+    .list-grid1 > *:nth-child(3) {
+        margin-top: 0;   /* 段差リセット */
+    }
+
+	}/*追加指定ここまで*/
+
+
+/*list-mask1（WorksやInstagramブロックで使っているカラムブロック）
+---------------------------------------------------------------------------*/
+.list-mask1 * {margin: 0;padding: 0;}
+
+/*ボックス全体*/
+.list-mask1 {
+	display: grid;
+	grid-template-columns: repeat(4, minmax(0, 1fr));	/*4列*/
+	gap: 7vw;	/*ボックスの間に空けるスペース。7%。*/
+	font-size: 0.9rem;	/*文字サイズ90%*/
+}
+
+	/*画面幅500px以下の追加指定*/
+	@media (max-width:500px) {
+
+    .list-mask1 {
+		grid-template-columns: repeat(2, minmax(0, 1fr));	/*2列*/
+    }
+
+	}/*追加指定ここまで*/
+
+
+/*ボックス１個あたり*/
+.list-mask1 .list-parts {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	overflow: hidden;
+}
+
+/*テキストボックス*/
+.list-mask1 .list-parts .text-parts {
+	flex: 1;
+}
+
+/*h4見出し*/
+.list-mask1 h4 {
+	text-align: center;	/*テキストをセンタリング*/
+}
+
+/*説明だけ小さめにする*/
+.list-mask1 .list-parts p {
+	font-size: 0.9em;	/*文字サイズ*/
+	line-height: 1.5;	/*行間*/
+}
+
+/*画像*/
+.list-mask1 figure,
+img.mask {
+	aspect-ratio: 1 / 1;   /* アスペクト比1:1の正方形 */
+}
+.list-mask1 figure img,
+img.mask {
+	transition: 0.5s;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: block;
+}
+
+/*画像にリンクがある場合のみ110%に拡大*/
+.list-mask1 figure a img:hover {
+	transform: scale(1.1);
+}
+
+	/* マスク対応ブラウザだけ「切り抜き」に切り替え */
+	@supports ((-webkit-mask-image: url("")) or (mask-image: url(""))) {
+
+	.list-mask1 figure,
+	img.mask {
+		overflow: hidden;
+		-webkit-mask-repeat: no-repeat;
+		-webkit-mask-position: center;
+		-webkit-mask-size: 100% 100%;
+		mask-repeat: no-repeat;
+		mask-position: center;
+		mask-size: 100% 100%;
+		/* 明示的に透過（アルファ）でマスクする指定を追加 */
+		-webkit-mask-source-type: alpha;
+		mask-mode: alpha;
+	}
+
+	.list-mask1 .list-parts.mask1 figure,
+	img.mask.mask1 {
+		-webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 1000'%3E%3Cpath fill='black' d='M934.9,934.9c-107.3,107.3-294.2,49.6-434.9,49.6s-327.5,57.7-434.9-49.6C-42.2,827.5,15.5,640.7,15.5,500S-42.2,172.5,65.1,65.1C172.5-42.2,359.3,15.5,500,15.5s327.5-57.7,434.9,49.6c107.3,107.3,49.6,294.2,49.6,434.9s57.7,327.5-49.6,434.9Z'/%3E%3C/svg%3E");
+		mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 1000'%3E%3Cpath fill='black' d='M934.9,934.9c-107.3,107.3-294.2,49.6-434.9,49.6s-327.5,57.7-434.9-49.6C-42.2,827.5,15.5,640.7,15.5,500S-42.2,172.5,65.1,65.1C172.5-42.2,359.3,15.5,500,15.5s327.5-57.7,434.9,49.6c107.3,107.3,49.6,294.2,49.6,434.9s57.7,327.5-49.6,434.9Z'/%3E%3C/svg%3E");
+	}
+
+	.list-mask1 .list-parts.mask2 figure,
+	img.mask.mask2 {
+		-webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 1000'%3E%3Cpath fill='black' d='M885.9,885.9c-52.7,57.7-122.9,82.5-189.6,96.8-67.7,13.7-132,17-196.2,17.3-64.3-.3-128.5-3.6-196.3-17.3-66.7-14.3-137-39.1-189.6-96.8-57.7-52.7-82.5-122.9-96.8-189.6C3.6,628.5.3,564.3,0,500c.3-64.3,3.6-128.5,17.3-196.3,14.3-66.7,39.1-137,96.8-189.6,52.7-57.7,122.9-82.5,189.6-96.8C371.5,3.6,435.7.3,500,0c64.3.3,128.5,3.6,196.3,17.3,66.7,14.3,137,39.1,189.6,96.8,57.7,52.7,82.5,122.9,96.8,189.6,13.7,67.7,17,132,17.3,196.2-.3,64.3-3.6,128.5-17.3,196.3-14.3,66.7-39.1,137-96.8,189.6h0Z'/%3E%3C/svg%3E");
+		mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 1000'%3E%3Cpath fill='black' d='M885.9,885.9c-52.7,57.7-122.9,82.5-189.6,96.8-67.7,13.7-132,17-196.2,17.3-64.3-.3-128.5-3.6-196.3-17.3-66.7-14.3-137-39.1-189.6-96.8-57.7-52.7-82.5-122.9-96.8-189.6C3.6,628.5.3,564.3,0,500c.3-64.3,3.6-128.5,17.3-196.3,14.3-66.7,39.1-137,96.8-189.6,52.7-57.7,122.9-82.5,189.6-96.8C371.5,3.6,435.7.3,500,0c64.3.3,128.5,3.6,196.3,17.3,66.7,14.3,137,39.1,189.6,96.8,57.7,52.7,82.5,122.9,96.8,189.6,13.7,67.7,17,132,17.3,196.2-.3,64.3-3.6,128.5-17.3,196.3-14.3,66.7-39.1,137-96.8,189.6h0Z'/%3E%3C/svg%3E");
+	}
+
+	.list-mask1 .list-parts.mask3 figure,
+	img.mask.mask3 {
+		-webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 1000'%3E%3Cpath fill='black' d='M1000,494.5c0,68.1-11.8,136.6-36,195.8-25.2,61.4-73.5,110.1-119.3,156.3-45.7,46.2-96.8,88.2-157.5,113.7-58.5,24.5-123.5,39.7-190.9,39.7s-128.5-24.5-187-49c-60.7-25.4-121.4-52.2-167.2-98.4-45.7-46.2-76.4-105.9-101.5-167.2C16.3,626.1,0,562.6,0,494.5s18.7-130.7,42.9-189.9c25.2-61.4,54.9-120.5,100.6-166.8,45.7-46.2,102.4-80.9,163.1-106.3C365.2,7,429,0,496.3,0s131.9,5.1,190.5,29.6c60.7,25.4,119.6,59,165.3,105.2,45.7,46.2,75.2,107.3,100.4,168.7s47.5,122.9,47.5,191Z'/%3E%3C/svg%3E");
+		mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 1000'%3E%3Cpath fill='black' d='M1000,494.5c0,68.1-11.8,136.6-36,195.8-25.2,61.4-73.5,110.1-119.3,156.3-45.7,46.2-96.8,88.2-157.5,113.7-58.5,24.5-123.5,39.7-190.9,39.7s-128.5-24.5-187-49c-60.7-25.4-121.4-52.2-167.2-98.4-45.7-46.2-76.4-105.9-101.5-167.2C16.3,626.1,0,562.6,0,494.5s18.7-130.7,42.9-189.9c25.2-61.4,54.9-120.5,100.6-166.8,45.7-46.2,102.4-80.9,163.1-106.3C365.2,7,429,0,496.3,0s131.9,5.1,190.5,29.6c60.7,25.4,119.6,59,165.3,105.2,45.7,46.2,75.2,107.3,100.4,168.7s47.5,122.9,47.5,191Z'/%3E%3C/svg%3E");
+	}
+
+	.list-mask1 .list-parts.mask4 figure,
+	img.mask.mask4 {
+		-webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 1000'%3E%3Cpath fill='black' d='M909.8,500c244.8,361.6-48.3,654.7-409.8,409.8-361.6,244.8-654.7-48.3-409.8-409.8C-154.7,138.4,138.4-154.7,500,90.2c361.6-244.8,654.7,48.3,409.8,409.8Z'/%3E%3C/svg%3E");
+		mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 1000'%3E%3Cpath fill='black' d='M909.8,500c244.8,361.6-48.3,654.7-409.8,409.8-361.6,244.8-654.7-48.3-409.8-409.8C-154.7,138.4,138.4-154.7,500,90.2c361.6-244.8,654.7,48.3,409.8,409.8Z'/%3E%3C/svg%3E");
+	}
+
+	.list-mask1 .list-parts.mask5 figure,
+	img.mask.mask5 {
+		-webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 1000'%3E%3Cpath fill='black' d='M691.6,500.5c0,33.2-25,60-40.6,86.9-16,27.7-27.3,62.6-55,78.6-26.8,15.5-62.3,8.3-95.6,8.3s-68.7,7.3-95.6-8.3c-27.7-16-38.9-50.9-55-78.6-15.5-26.8-40.6-53.7-40.6-86.9s25-60,40.6-86.9c16-27.7,27.3-62.6,55-78.6,26.8-15.5,62.3-8.3,95.6-8.3s68.7-7.3,95.6,8.3c27.7,16,38.9,50.9,55,78.6,15.5,26.8,40.6,53.7,40.6,86.9Z'/%3E%3Cpath fill='black' d='M1000,500c0,92.7-39.8,175.2-81.7,250-43.2,77.2-93.7,153.6-168.3,198.3-72.3,43.3-160.5,51.6-250,51.6s-177.7-8.3-250-51.6c-74.6-44.7-125.2-121.1-168.3-198.3C39.8,675.2,0,592.7,0,500s39.8-175.2,81.7-250c43.2-77.2,93.7-153.6,168.3-198.3C322.3,8.3,410.5,0,500,0s177.7,8.3,250,51.6c74.6,44.7,125.2,121.1,168.3,198.3,41.8,74.8,81.7,157.3,81.7,250Z'/%3E%3C/svg%3E");
+		mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 1000'%3E%3Cpath fill='black' d='M691.6,500.5c0,33.2-25,60-40.6,86.9-16,27.7-27.3,62.6-55,78.6-26.8,15.5-62.3,8.3-95.6,8.3s-68.7,7.3-95.6-8.3c-27.7-16-38.9-50.9-55-78.6-15.5-26.8-40.6-53.7-40.6-86.9s25-60,40.6-86.9c16-27.7,27.3-62.6,55-78.6,26.8-15.5,62.3-8.3,95.6-8.3s68.7-7.3,95.6,8.3c27.7,16,38.9,50.9,55,78.6,15.5,26.8,40.6,53.7,40.6,86.9Z'/%3E%3Cpath fill='black' d='M1000,500c0,92.7-39.8,175.2-81.7,250-43.2,77.2-93.7,153.6-168.3,198.3-72.3,43.3-160.5,51.6-250,51.6s-177.7-8.3-250-51.6c-74.6-44.7-125.2-121.1-168.3-198.3C39.8,675.2,0,592.7,0,500s39.8-175.2,81.7-250c43.2-77.2,93.7-153.6,168.3-198.3C322.3,8.3,410.5,0,500,0s177.7,8.3,250,51.6c74.6,44.7,125.2,121.1,168.3,198.3,41.8,74.8,81.7,157.3,81.7,250Z'/%3E%3C/svg%3E");
+	}
+
+	.list-mask1 .list-parts.mask6 figure,
+	img.mask.mask6 {
+		-webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 1000'%3E%3Cpolygon fill='black' points='1000 500 957.3 566.4 979.9 642.3 920.3 693.9 920.7 773.1 849.1 805.6 827.4 881.7 749.8 892.6 707.8 959.5 630.2 947.8 571.2 1000 500 966.6 428.9 1000 369.8 947.8 292.2 959.5 250.2 892.6 172.6 881.7 150.9 805.6 79.3 773.1 79.7 693.9 20.1 642.3 42.7 566.4 0 500 42.7 433.6 20.1 357.7 79.7 306.1 79.3 226.9 150.9 194.4 172.6 118.3 250.2 107.4 292.2 40.5 369.8 52.2 428.8 0 500 33.4 571.1 0 630.2 52.2 707.8 40.5 749.8 107.4 827.4 118.3 849.1 194.4 920.7 226.9 920.3 306.1 979.9 357.7 957.3 433.6 1000 500'/%3E%3C/svg%3E");
+		mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 1000'%3E%3Cpolygon fill='black' points='1000 500 957.3 566.4 979.9 642.3 920.3 693.9 920.7 773.1 849.1 805.6 827.4 881.7 749.8 892.6 707.8 959.5 630.2 947.8 571.2 1000 500 966.6 428.9 1000 369.8 947.8 292.2 959.5 250.2 892.6 172.6 881.7 150.9 805.6 79.3 773.1 79.7 693.9 20.1 642.3 42.7 566.4 0 500 42.7 433.6 20.1 357.7 79.7 306.1 79.3 226.9 150.9 194.4 172.6 118.3 250.2 107.4 292.2 40.5 369.8 52.2 428.8 0 500 33.4 571.1 0 630.2 52.2 707.8 40.5 749.8 107.4 827.4 118.3 849.1 194.4 920.7 226.9 920.3 306.1 979.9 357.7 957.3 433.6 1000 500'/%3E%3C/svg%3E");
+	}
+
+	.list-mask1 .list-parts.mask7 figure,
+	img.mask.mask7 {
+		-webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 1000'%3E%3Cpath fill='black' d='M645,20.5C299.1-50.2,132.3,264.5,101.6,443.2c-42.8,248.8,55.1,526.1,359.7,549.9,333.3,26,430.4-283.2,444.5-416.3,21.2-199.3-19.8-506.9-260.9-556.2Z'/%3E%3C/svg%3E");
+		mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 1000'%3E%3Cpath fill='black' d='M645,20.5C299.1-50.2,132.3,264.5,101.6,443.2c-42.8,248.8,55.1,526.1,359.7,549.9,333.3,26,430.4-283.2,444.5-416.3,21.2-199.3-19.8-506.9-260.9-556.2Z'/%3E%3C/svg%3E");
+	}
+
+	}/*追加指定ここまで*/
+
+
+/*list-flex1 （Serviceブロック）
+---------------------------------------------------------------------------*/
+.list-flex1 * {margin: 0;padding: 0;}
+
+/*ブロック全体*/
+.list-flex1 {
+	display: flex;
+	flex-direction: column;
+	gap: 5vw;
+}
+
+	/*画面幅600px以上の追加指定*/
+	@media (min-width:600px) {
+
+    .list-flex1 {
+		flex-direction: row;
+		align-items: center;
+    }
+
+	}/*追加指定ここまで*/
+
+
+/*テキストブロック*/
+.list-flex1 .text {
+	flex: 1;
+}
+
+/*メニューブロック全体*/
+.list-flex1 .text ul {
+	list-style: none;margin: 0;padding: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 1.5rem;	/*メニュー同士に空けるスペース。1.5文字分。*/
+}
+/*メニュー１個あたり*/
+.list-flex1 .text li {
+	display: flex;
+	align-items: center;
+	gap: 1rem;	/*アイコンとメニューテキストの間に空けるスペース。1文字分。*/
+}
+/*メニューのアイコン*/
+.list-flex1 .text i {
+	flex-shrink: 0;
+	background: var(--light-color);	/*背景色。theme.cssのlight-colorを読み込みます。*/
+	color: var(--accent-color);		/*文字色。theme.cssのaccent-colorを読み込みます。*/
+	width: 3rem;	/*幅。3文字分。*/
+	line-height: 3rem;	/*高さ。3文字分。*/
+	text-align: center;
+	border-radius: 50%;	/*円形にする*/
+	font-size: 1rem;	/*アイコンサイズ*/
+}
+/*メニューの説明文（小文字）*/
+.list-flex1 .text p {
+	font-size: 0.8rem;	/*文字サイズ80%*/
+}
+
+/*画像ブロック*/
+.list-flex1 .image {
+	width: 100%;
+	position: relative;
+}
+
+	/*画面幅600px以上の追加指定*/
+	@media (min-width:600px) {
+
+    .list-flex1 .image {
+		width: 70%;	/*幅。お好みで。*/
+    }
+
+	}/*追加指定ここまで*/
+
+
+/*画像の右下の「Concept」ブロック*/
+.list-flex1 .image .overlay {
+	position: absolute;
+	right: -2vw;	/*右からの配置場所。マイナスがついているので本来とは反対方向。*/
+	bottom: -2vw;	/*下からの配置場所。マイナスがついているので本来とは反対方向。*/
+	background: var(--light-color);	/*背景色。thtme.cssのlight-colorを読み込みます。*/
+	color: var(--lignt-inverse-color);	/*文字色。thtme.cssのlight-inverse-colorを読み込みます。*/
+	padding: 5vw;	/*ブロック内の余白。5%。*/
+	width: 40%;		/*ブロックの幅。お好みで。*/
+}
+/*「Concept」ブロック内の見出し*/
+.list-flex1 .image .overlay h4 {
+	position: relative;
+	padding-bottom: 1rem;	/*下のアクセントラインとの間に空けるスペース。1文字分。*/
+	margin-bottom: 1rem;	/*下のアクセントラインの下に空けるスペース。1文字分。*/
+}
+/*「Concept」ブロック見出し内の見出しの下のアクセントライン*/
+.list-flex1 .image .overlay h4::before {
+	content: "";
+	position: absolute;
+	left: 0px;		/*左からの配置場所*/
+	bottom: 0px;	/*下からの配置場所*/
+	width: 2rem;	/*幅。2文字分。*/
+	height: 1px;	/*ラインの高さ。*/
+	background: var(--bg-inverse-color);	/*ラインの色。thtme.cssのbg-inverse-colorを読み込みます。つまり、テキストと同じ色。*/
+}
+/*「Concept」ブロックの説明文*/
+.list-flex1 .image .overlay p {
+	font-size: 0.8rem;	/*文字サイズ80%*/
+}
+
+
+/*gallery（Instagramのブロック）
+---------------------------------------------------------------------------*/
+.gallery * {margin: 0;padding: 0;}
+
+/*ブロック全体*/
+.gallery {
+	display: flex;
+	gap: 5vw;	/*左右のブロックの間に空けるスペース。5%。*/
+}
+
+/*画像ブロック*/
+.gallery .image {
+	width: 70%;	/*幅*/
+}
+
+/*テキストブロック*/
+.gallery .text {
+	flex: 1;
+}
+/*写真１枚あたり。以下以外の設定は別にあります。「.list-mask1」でテキスト検索をかけてください。*/
+.gallery .list-mask1 {
+	gap: 2vw;	/*写真同士の間に空けるスペース。2%。*/
+}
+
+
+/*news（お知らせ）
+---------------------------------------------------------------------------*/
+dl.news * {margin: 0;padding: 0;}
+
+/*日付*/
+dl.news dt {
+	display: flex;
+}
+
+	/*画面幅900px以上の追加指定*/
+	@media (min-width: 900px){
+
+	dl.news {
+		display: grid;
+		grid-template-columns: max-content minmax(0, 1fr);	/*日付幅は最大の文字数幅に自動調整し、右側テキストは残り一杯使う。*/
+		gap: 0 2rem;	/*2remが、日付とテキストとの間に空けるスペース。お好みで。*/
+		align-items: start;
+	}
+
+	}/*追加指定ここまで*/
+
+
+/*contactブロック
+---------------------------------------------------------------------------*/
+.contact * {margin: 0;padding: 0;}
+
+/*ブロック全体*/
+.contact {
+	display: flex;
+	flex-direction: column;	/*縦積み*/
+	justify-content: center;
+	text-align: center;		/*センタリング*/
+	gap: 5vw;	/*テキストと写真ブロックの間に5%空ける。*/
+}
+
+	/*画面幅600px以上の追加指定*/
+	@media (min-width:600px) {
+
+	.contact {
+		flex-direction: row;	/*横並びに*/
+		align-items: center;
+		text-align: left;		/*テキストを左寄せ*/
+	}
+
+	}/*追加指定ここまで*/
+
+
+/*テキストブロック*/
+.contact .text {
+	flex: 1;
+}
+
+/*ブロック内のh2をセンタリング*/
+.contact h2 {
+	width: fit-content;
+	margin-inline: auto;
+}
+
+	/*画面幅600px以上の追加指定*/
+	@media (min-width:600px) {
+
+	/*ブロック内のh2を左よせに*/
+	.contact h2 {
+		margin-inline: 0;
+	}
+
+	}/*追加指定ここまで*/
+
+
+/*画像ブロック*/
+.contact .image {
+	width: 100%;
+	position: relative;
+}
+
+	/*画面幅600px以上の追加指定*/
+	@media (min-width:600px) {
+
+	/*画像ブロック*/
+	.contact .image {
+		width: 60%;	/*画像ブロックの幅。お好みで。*/
+	}
+
+	}/*追加指定ここまで*/
+
+
+/*画像*/
+.contact .img {
+	border-radius: 20vw 20vw 10px 10px;	/*角を丸くする。左上、右上、右下、左下の順番。*/
+}
+/*画像上の「Thank you」の画像*/
+.contact .image .kazari {
+	position: absolute;
+	width: 100px;	/*幅。お好みで。*/
+	right: -4vw;	/*右からの配置場所。マイナスがついているので本来とは逆向き。*/
+	top: 20%;		/*上からの配置場所*/
+}
+
+
+/*ボタン（btn-grad1）
+---------------------------------------------------------------------------*/
+.btn-grad1 a {
+	text-decoration: none;
+	position: relative;
+	display: flex;
+	justify-content: center;
+	padding: 0.5rem 2rem;	/*上下に0.5文字分、左右に2文字分の余白*/
+	border-radius: 3px;		/*角を少しだけ丸く*/
+	color: #fff;	/*文字色。お好みで。*/
+	text-shadow: 1px 1px rgba(0,0,0,0.2);	/*テキストの影。右へ1px、下へ1px、0,0,0は黒のことで0.2は色が20%出た状態。*/
+	transition: background-position 0.5s ease, transform 0.5s ease;	/*「background-position」と「transform」の変化に0.5秒かける。数値はお好みで。*/
+	background: linear-gradient(120deg, #cd9eb7, var(--accent-color)) left center / 200% 200%;/*背景グラデーション。120degは角度。#はグラデに使う色。グラデの表示範囲を左半分に。最後が縦横サイズ。*/
+	letter-spacing: 0.1em;	/*文字間隔を少しだけ広く*/
+}
+
+/*テキスト量にあったサイズ用*/
+.btn-grad1.fit a {
+	display: inline-flex;
+}
+
+/*テキスト量にあったサイズ用の左右中央用*/
+.btn-grad1.c {
+	text-align: center;
+}
+
+/*マウスオン時（色の追加をする際は、このブロックより上に入れて下さい。）*/
+.btn-grad1 a:hover {
+	filter: none;
+	background-position: right center;	/*グラデの表示範囲を、右半分に。*/
+	transform: translateY(-2px);	/*ボタンを2pxだけ浮かす*/
+}
+
+
+/*footer
+---------------------------------------------------------------------------*/
+footer * {margin: 0;padding: 0;}
+
+/*フッターブロック全体*/
+footer {
+	padding: 2rem var(--content-space-l);	/*フッター内の余白。上下に2文字分、左右は、theme.cssのcontent-space-lを読み込みます*/
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1rem;
+	justify-content: space-between;
+	align-items: center;
+	font-size: 0.8rem;	/*文字サイズ80%*/
+}
+
+	/*画面幅700px以下の追加指定*/
+	@media (max-width:700px) {
+
+	/*フッターブロック全体*/
+	footer {
+		flex-direction: column;	/*縦積みに*/
+	}
+
+	}/*追加指定ここまで*/
+
+
+/*フッター内のメニューブロック*/
+footer ul {
+	list-style: none;margin: 0;padding: 0;
+	display: flex;
+	gap: 1rem;	/*メニュー同士に空けるスペース。1文字分。*/
+}
+
+/*フッター内のロゴ*/
+footer .logo {
+	flex-shrink: 0;
+	width: 80px;	/*幅。お好みで。*/
+}
+
+/*フッター内のSNSアイコン（Font Awesome）*/
+footer .sns {
+	font-size: 1.2rem;	/*サイズ。120%。*/
+}
+
+/*Copyright*/
+footer small {
+	width: 100%;
+}
+
+	/*画面幅700px以下の追加指定*/
+	@media (max-width:700px) {
+
+	/*Copyrightをセンタリング*/
+	footer small {
+		text-align: center;
+	}
+
+	}/*追加指定ここまで*/
+
+
+/*著作部分（※意図的に見えなくしたりしないで下さい。規約違反になります。）
+---------------------------------------------------------------------------*/
+.pr a {
+	text-decoration: none;display: block;
+	background: rgba(0,0,0,0.5);
+	color: #ccc;
+	text-align: right;
+	padding: 0.5rem 1rem;
+	font-size: 0.8rem;
+}
+.pr a::before {
+	font-family: "Font Awesome 6 Free";
+	content: "\e2ca";
+	font-weight: 900;
+	margin-right: 0.5em;
+}
+
+
+/*PAGE TOP（↑）設定
+---------------------------------------------------------------------------*/
+.pagetop-show {display: block;}
+
+/*ボタンの設定*/
+.pagetop a {
+	display: block;text-decoration: none;text-align: center;z-index: 99;
+	animation: opa1 1s 0.4s both;
+	position: fixed;	/*スクロールに追従しない(固定で表示)為の設定*/
+	right: 20px;		/*右からの配置場所指定*/
+	bottom: 20px;		/*下からの配置場所指定*/
+	color: #fff;		/*文字色*/
+	font-size: 1.5rem;	/*文字サイズ*/
+	background: rgba(0,0,0,0.2);	/*背景色。0,0,0は黒の事で0.2は色が20%出た状態。*/
+	width: 60px;		/*幅*/
+	line-height: 60px;	/*高さ*/
+	border-radius: 50%;	/*円形にする*/
+}
+
+
+/*bg1-parts
+---------------------------------------------------------------------------*/
+.bg1-parts {
+	background: var(--bg-inverse-color);	/*文字色。theme.cssのbg-inverse-colorを読み込みます。*/
+	color: var(--bg-color);		/*背景色。theme.cssのbg-colorを読み込みます。*/
+}
+
+/*bg1-primary
+---------------------------------------------------------------------------*/
+.bg1-primary-parts {
+	background: var(--primary-color);		/*背景色。theme.cssのprimary-colorを読み込みます。*/
+	color: var(--primary-inverse-color);	/*文字色。theme.cssのprimary-inverse-colorを読み込みます。*/
+}
+
+
+/*bg1-light
+---------------------------------------------------------------------------*/
+.bg1-light-parts {
+	background: var(--light-color);		/*背景色。theme.cssのlight-colorを読み込みます。*/
+	color: var(--light-inverse-color);	/*背景色。theme.cssのlight-inverse-colorを読み込みます。*/
+}
+
+
+/*bg1-accent
+---------------------------------------------------------------------------*/
+.bg1-accent-parts {
+	background: var(--accent-color);		/*背景色。theme.cssのaccent-colorを読み込みます。*/
+	color: var(--accent-inverse-color);	/*背景色。theme.cssのaccent-inverse-colorを読み込みます。*/
+}
+
+
+/*bg-parts（bg1-primary-parts、bg1-light-parts、bg1-accent-partsとセットで使います）
+---------------------------------------------------------------------------*/
+.bg-parts {
+	padding-top: var(--content-space-l);		/*ボックス内の上に空ける余白。theme.cssのcontent-space-lを読み込みます。*/
+	padding-bottom: var(--content-space-l);	/*ボックス内の下に空ける余白。theme.cssのcontent-space-lを読み込みます。*/
+}
+
+/*背景色が続く場合に隙間を空けない*/
+.bg-parts + .bg-parts {
+	margin-top: calc(-1 * var(--content-space-l)) !important;
+}
+
+
+/*section内で画面両サイドいっぱいまで広げる場合（marginのみでもいいが安定版に）
+---------------------------------------------------------------------------*/
+.bleed-x-parts {
+	--bleed-x: var(--content-space-l);	/*エイリアスに*/
+	width: calc(100% + (var(--bleed-x) * 2));	/*section内容の幅＋両サイドpadding（対象要素の幅）*/
+	margin-left: calc(var(--bleed-x) * -1);
+	margin-right: calc(var(--bleed-x) * -1);
+	max-width: none;
+}
+
+
+/*左右によせる専用
+---------------------------------------------------------------------------*/
+.bleed-left-parts {
+	width: calc(100% + var(--content-space-l));
+	margin-left: calc(-1 * var(--content-space-l));
+}
+.bleed-right-parts {
+	width: calc(100% + var(--content-space-l));
+	margin-right: calc(-1 * var(--content-space-l));
+}
+
+
+/*その他
+---------------------------------------------------------------------------*/
+.color-check, .color-check a {color: #c3547b !important;}
+.l {text-align: left !important;}
+.c {text-align: center !important;}
+.r {text-align: right !important;}
+.ws {width: 100%;display: block;}
+.wl {width: 100%;display: block;}
+.padding-x {padding: 0 var(--content-space-l);}
+.mt0 {margin-top: 0px !important;}
+.mt1rem {margin-top: 1rem !important;}
+.mt3rem {margin-top: 3rem !important;}
+.mb0 {margin-bottom: 0px !important;}
+.mb1rem {margin-bottom: 1rem !important;}
+.mb3rem {margin-bottom: 3rem !important;}
+.mb30 {margin-bottom: 30px !important;}
+.look {display: inline-block;padding: 0px 10px;background: rgba(0,0,0,0.4);color: #fff; border-radius: 3px;margin: 5px 0; word-break: break-all;}
+.small {font-size: 0.75em;}
+.large {font-size: 2em; letter-spacing: 0.1em;}
+.pc {display: none;}
+.dn {display: none !important;}
+.block {display: block !important;}
+.is-clip {overflow: hidden;}
+
+/*大きな画面の場合*/
+.large-screen .ws {width: 50%;}
+.large-screen .sh {display: none;}
+.large-screen .pc {display: block;}
