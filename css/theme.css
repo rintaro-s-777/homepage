@@ -1,0 +1,47 @@
+@charset "utf-8";
+
+
+/*Google Fontsの読み込み
+---------------------------------------------------------------------------*/
+@import url('https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&display=swap');
+
+/*Font Awesomeの読み込み
+---------------------------------------------------------------------------*/
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css");
+
+
+/*CSSカスタムプロパティ（サイト全体を一括管理する為の設定）
+---------------------------------------------------------------------------*/
+:root {
+
+	--bg-color: #0d0f13;					/*主にテンプレートの背景色*/
+	--bg-border-color: rgba(255,255,255,0.18);	/*枠線の色。255,255,255は白の事で0.18は色が18%出た状態。*/
+	--bg-inverse-color: #ece7dd;			/*上のカラーの「対」として使う色*/
+	--bg-inverse-border-color: rgba(255,255,255,0.5);	/*枠線の色。255,255,255,0.5は白の事で0.5は色が50%出た状態。*/
+	
+	--primary-color: #2a313c;			/*メインカラー*/
+	--primary-inverse-color: #ece7dd;		/*上のカラーの「対」として使う色*/
+	--primary-border-color: rgba(255,255,255,0.5);	/*枠線の色。255,255,255,0.5は白の事で0.5は色が50%出た状態。*/
+	
+	--light-color: #323a46;					/*薄いカラー（黒系テンプレートでは、背景色より少しだけ明るい色）*/
+	--light-inverse-color: #ece7dd;			/*上のカラーの「対」として使う色*/
+	--light-border-color: rgba(255,255,255,0.2);	/*枠線の色。255,255,255は白の事で0.2は色が20%出た状態。*/
+
+	--accent-color: #c8a96a;			/*アクセントカラー*/
+	--accent-inverse-color: #14181e;	/*上のカラーの「対」として使う色*/
+	--accent-border-color: rgba(255,255,255,0.5);	/*枠線の色。255,255,255は白の事で0.5は色が50%出た状態。*/
+
+	--mainimg-veil-color: rgba(0,0,0,0.45);	/*動画の上に重ねる暗幕の濃さ。数字を大きくすると暗くなり、文字が読みやすくなります。*/
+	--mainimg-bg-color: #0d0f13;				/*動画の読み込み中に表示される背景色。動画の暗い部分に近い色がおすすめです。*/
+
+	--footer-color: #08090c;			/*フッターの背景色*/
+
+	--content-space-l: 7vw;		/*余白の一括管理用。画面幅100% = 100vwです。*/
+	--content-space-v: 3vw;		/*セクションの上下の余白。0にはせず、--content-space-l より小さい値にしてください。上下のセクションが隣り合うと、2つ分の余白になります。*/
+	--content-space-s: 2rem;	/*余白の一括管理用。2文字分。*/
+
+	--base-font: "Shippori Mincho", "Hiragino Mincho Pro", "ヒラギノ明朝 Pro W3", "HGS明朝E", "ＭＳ Ｐ明朝", "MS PMincho", serif;  /*フォント指定*/
+	--accent-font: "Cormorant Garamond";  		/*アクセント用英語フォント指定*/
+
+}
